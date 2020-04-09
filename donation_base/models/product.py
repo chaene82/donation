@@ -23,7 +23,6 @@ class ProductTemplate(models.Model):
         help="Specify if the product is eligible for a tax receipt"
     )
 
-    @api
     @api.onchange('donation')
     def _donation_change(self):
         for product in self:
@@ -32,7 +31,6 @@ class ProductTemplate(models.Model):
                 product.taxes_id = False
                 product.supplier_taxes_id = False
 
-    @api
     @api.onchange('in_kind_donation')
     def _in_kind_donation_change(self):
         for product in self:
@@ -66,14 +64,12 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    @api
     @api.onchange('donation')
     def _donation_change(self):
         for product in self:
             if product.donation:
                 product.type = 'service'
 
-    @api
     @api.onchange('in_kind_donation')
     def _in_kind_donation_change(self):
         for product in self:
